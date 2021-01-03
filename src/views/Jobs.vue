@@ -1,4 +1,5 @@
 <template>
+
   <d-container fluid class="main-content-container px-4">
     <!-- Page Header -->
     <div class="page-header row no-gutters py-4">
@@ -7,6 +8,57 @@
       </div>
     </div>
 
+<d-card class="card-small" style="margin-top:30px;">
+
+            <d-card-header class="border-bottom">
+              <h6 class="m-0">Add a New Job</h6>
+            </d-card-header>
+
+            <d-list-group flush>
+              <d-list-group-item>
+                <d-row>
+                  <d-col>
+                    <d-form>
+
+                      <div class="form-group">
+                        <label for="feInputAddress">Company Name</label>
+                        <d-input id="feInputAddress" placeholder="Company Name..." />
+                      </div>
+                      <div class="form-group">
+                        <label for="feInputAddress">Job Title</label>
+                        <d-input id="feInputAddress" placeholder="Job..." />
+                      </div>
+
+                      <div class="form-group">
+                        <label for="feInputAddress2">Responsibilities</label>
+                        <d-input id="feInputAddress2" placeholder="Responsibilities..." />
+                      </div>
+
+                      <d-form-row>
+                        <d-col md="6" class="form-group">
+                          <label for="feInputCity">Competancies</label>
+                          <d-input id="feInputCity" />
+                        </d-col>
+                        <d-col md="6" class="form-group">
+                          <label for="feInputZip">IR 4.0 Pillars</label>
+                          <d-input id="feInputZip" />
+                        </d-col>
+                      </d-form-row>
+                      <d-form-row>
+                        <d-col md="10" class="form-group">
+                        </d-col>
+                        <d-col md="2" class="form-group" style="text-align:right;">
+                        <d-button theme="primary" class="mb-2 mr-1">Post</d-button>
+                        </d-col>
+                      </d-form-row>
+                    </d-form>
+                  </d-col>
+                </d-row>
+              </d-list-group-item>
+            </d-list-group>
+
+          </d-card>
+          <br />
     <!-- Current -->
     <div class="row">
       <div class="col">
@@ -69,6 +121,7 @@
       </div>
     </div>
   </d-container>
+
 </template>
 
 <script>

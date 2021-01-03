@@ -2,7 +2,6 @@
 
                       <d-card class="card-small" style="margin-top:30px;">
 
-            <!-- Form Example -->
             <d-card-header class="border-bottom">
               <h6 class="m-0">Profile</h6>
             </d-card-header>

@@ -5,7 +5,6 @@ import Overview from './views/Overview.vue';
 import Profile from './views/Profile.vue';
 import Errors from './views/Errors.vue';
 import News from './views/News.vue';
-import Client from './views/Client.vue';
 import Jobs from './views/Jobs.vue';
 
 Vue.use(Router);
@@ -42,11 +41,6 @@ export default new Router({
       path: '/errors',
       name: 'errors',
       component: Errors,
-    },
-    {
-      path: '/clients',
-      name: 'clients',
-      component: Client,
     },
     {
       path: '/jobs',

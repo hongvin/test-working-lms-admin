@@ -26,11 +26,6 @@ export default function () {
     to: {
       name: 'jobs',
     },
-  }, {
-    title: 'Clients',
-    // htmlBefore: '<i class="material-icons">rule</i>',
-    to: {
-      name: 'clients',
-    },
+  
   }];
 }
