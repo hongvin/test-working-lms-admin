@@ -6,6 +6,7 @@ import Profile from './views/Profile.vue';
 import Errors from './views/Errors.vue';
 import News from './views/News.vue';
 import Jobs from './views/Jobs.vue';
+import Programmes from './views/Program.vue';
 
 Vue.use(Router);
 
@@ -46,6 +47,11 @@ export default new Router({
       path: '/jobs',
       name: 'jobs',
       component: Jobs,
+    },
+    {
+      path: '/programmes',
+      name: 'programmes',
+      component: Programmes,
     },
     {
       path: '*',

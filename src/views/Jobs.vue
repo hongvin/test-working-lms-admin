@@ -3,12 +3,18 @@
   <d-container fluid class="main-content-container px-4">
     <!-- Page Header -->
     <div class="page-header row no-gutters py-4">
-      <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+      <div class="col-12 col-sm-10 text-center text-sm-left mb-0">
         <h3 class="page-title">Job Vacancy</h3>
+      </div>
+      <div><d-button 
+      v-on:click="showAdd = !showAdd">
+      <span v-if="showAdd">Add a new job</span>
+      <span v-else>Hide</span>
+      </d-button>
       </div>
     </div>
 
-<d-card class="card-small" style="margin-top:30px;">
+<d-card class="card-small" style="margin-top:30px;" v-if="!showAdd">
 
             <d-card-header class="border-bottom">
               <h6 class="m-0">Add a New Job</h6>
@@ -21,27 +27,22 @@
                     <d-form>
 
                       <div class="form-group">
-                        <label for="feInputAddress">Company Name</label>
-                        <d-input id="feInputAddress" placeholder="Company Name..." />
-                      </div>
-                      <div class="form-group">
                         <label for="feInputAddress">Job Title</label>
-                        <d-input id="feInputAddress" placeholder="Job..." />
+                        <d-input id="feInputAddress" placeholder="Title..." />
                       </div>
-
                       <div class="form-group">
-                        <label for="feInputAddress2">Responsibilities</label>
-                        <d-input id="feInputAddress2" placeholder="Responsibilities..." />
+                        <label for="feInputAddress">Job Description</label>
+                        <d-input id="feInputAddress" placeholder="Job..." />
                       </div>
 
                       <d-form-row>
                         <d-col md="6" class="form-group">
                           <label for="feInputCity">Competancies</label>
-                          <d-input id="feInputCity" />
+                          <d-form-select v-model="selectedComp" :options="competancies" />
                         </d-col>
                         <d-col md="6" class="form-group">
                           <label for="feInputZip">IR 4.0 Pillars</label>
-                          <d-input id="feInputZip" />
+                          <d-form-select v-model="selectedPillar" :options="pillars" />
                         </d-col>
                       </d-form-row>
                       <d-form-row>
@@ -62,61 +63,75 @@
     <!-- Current -->
     <div class="row">
       <div class="col">
-        <div v-for="(post, idx) in news"
-                :key="idx" class="card card-small mb-4">
-          <div  class="card-header border-bottom">
-            <h6 class="m-0">{{ post.title }}
-            <d-badge
-                      pill
-                      :class="[
-                        'card-post__category',
-                        'bg-' + post.color,
-                      ]"
-                      >{{ post.avail }}</d-badge
-                    ></h6>
+        <div class="card card-small mb-4">
+          <div class="card-header border-bottom">
+            <h6 class="m-0">Active Job Postings</h6>
           </div>
-          <div class="card-body p-2 pb-3 text-center">
-            <d-row>
-              <d-col
-                
-                lg="12"
-                sm="12"
-                class="mb-4"
-              >
-                <d-card
-                  class="card-small card-post card-post--aside card-post--1"
-                >
-                  <d-card-body>
-                    <d-row>
-                      <d-col lg="4">
-                        <d-card>
-                          <d-card-header class="border-bottom">
-              <h6 class="m-0">Responsibility</h6>
-            </d-card-header>
-                    <p class="card-text d-inline-block mb-3">{{ post.body }}</p></d-card>
-                      </d-col>
-                      <d-col lg="4">
-                        <d-card>
-                          <d-card-header class="border-bottom">
-              <h6 class="m-0">Skills Needed</h6>
-            </d-card-header>
-                    <p class="card-text d-inline-block mb-3">{{ post.body }}</p></d-card>
-                      </d-col>
-                      <d-col lg="4">
-                        <d-card>
-                          <d-card-header class="border-bottom">
-              <h6 class="m-0">IR 4.0 Pillars</h6>
-            </d-card-header>
-                    <p class="card-text d-inline-block mb-3">{{ post.body }}</p></d-card>
-                      </d-col>
-                      </d-row>
-                    <br />
+          <div class="card-body p-0 pb-3 text-center">
+            <table class="table mb-0">
+              <thead class="bg-light">
+                <tr>
+                  <th scope="col" class="border-0">#</th>
+                  <th scope="col" class="border-0">Job Title</th>
+                  <th scope="col" class="border-0">Date Posted</th>
+                  <th scope="col" class="border-0">IR4.0 Pillars & Competancies</th>
+                  <th scope="col" class="border-0">Number of Applications</th>
+                  <th scope="col" class="border-0">Applicants</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(item,idx) in openings" :key="idx">
+                  <td>{{ idx+1 }}</td>
+                  <td>{{ item.Title }}</td>
+                  <td>{{ item.Date }}</td>
+                  <td>{{ item.IR4 }}</td>
+                  <td>{{ item.Number }}</td>
+                  <td><d-button>List of applicants</d-button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <d-col class="text-right view-report">
+          <a href="#">See more &rarr;</a>
+        </d-col>
+        </div>
+      </div>
+    </div>
 
-                  </d-card-body>
-                </d-card>
-              </d-col>
-            </d-row>
+    <!-- closed -->
+    <div class="row">
+      <div class="col">
+        <div class="card card-small mb-4">
+          <div class="card-header border-bottom">
+            <h6 class="m-0">Closed Job Postings</h6>
           </div>
+          <div class="card-body p-0 pb-3 text-center">
+            <table class="table mb-0">
+              <thead class="bg-light">
+                <tr>
+                  <th scope="col" class="border-0">#</th>
+                  <th scope="col" class="border-0">Job Title</th>
+                  <th scope="col" class="border-0">Date Posted</th>
+                  <th scope="col" class="border-0">IR4.0 Pillars & Competancies</th>
+                  <th scope="col" class="border-0">Number of Applications</th>
+                  <th scope="col" class="border-0">Applicants</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(item,idx) in closed" :key="idx">
+                  <td>{{ idx+1 }}</td>
+                  <td>{{ item.Title }}</td>
+                  <td>{{ item.Date }}</td>
+                  <td>{{ item.IR4 }}</td>
+                  <td>{{ item.Number }}</td>
+                  <td><d-button>List of applicants</d-button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <d-col class="text-right view-report">
+          <a href="#">See more &rarr;</a>
+        </d-col>
         </div>
       </div>
     </div>
@@ -125,25 +140,56 @@
 </template>
 
 <script>
-const news = [
+const openings = [
   {
-    title: "ABC Company",
-    avail:'Open',
-    color:'info',
-    body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras mollis quam odio, eget commodo purus sollicitudin et. Vestibulum et ornare ex, nec ultrices turpis. Nulla ac lobortis urna, in malesuada lacus. Ut finibus mi in sem rhoncus, congue mattis lacus vehicula. Quisque nec vulputate massa. Duis suscipit et quam at commodo. In aliquet nisl nulla, eu tempus libero dictum nec. Suspendisse sit amet pulvinar justo, in feugiat nibh. Phasellus risus dolor, dapibus nec magna ac, accumsan blandit enim. Etiam diam tellus, maximus a accumsan a, sodales nec nisi. Morbi porttitor efficitur velit, vel rhoncus elit blandit vitae. Morbi nec massa nec odio lacinia porta. Sed nisi nulla, condimentum at semper eu, sollicitudin ac ante. Praesent hendrerit bibendum diam in iaculis. Praesent imperdiet lectus et blandit maximus.",
+    Title: "ABC Company",
+    Date:'1 Jan 2021',
+    IR4:'Pillars1',
+    Number: "12",
   },
   {
-    title: "DEF Company",
-    avail:'Closed',
-    color:'warning',
-    body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras mollis quam odio, eget commodo purus sollicitudin et. Vestibulum et ornare ex, nec ultrices turpis. Nulla ac lobortis urna, in malesuada lacus. Ut finibus mi in sem rhoncus, congue mattis lacus vehicula. Quisque nec vulputate massa. Duis suscipit et quam at commodo. In aliquet nisl nulla, eu tempus libero dictum nec. Suspendisse sit amet pulvinar justo, in feugiat nibh. Phasellus risus dolor, dapibus nec magna ac, accumsan blandit enim. Etiam diam tellus, maximus a accumsan a, sodales nec nisi. Morbi porttitor efficitur velit, vel rhoncus elit blandit vitae. Morbi nec massa nec odio lacinia porta. Sed nisi nulla, condimentum at semper eu, sollicitudin ac ante. Praesent hendrerit bibendum diam in iaculis. Praesent imperdiet lectus et blandit maximus.",
+    Title: "ABC Company",
+    Date:'1 Jan 2021',
+    IR4:'Pillars1',
+    Number: "12",
   },
 ];
 
+const closed = [
+  {
+    Title: "ABC Company",
+    Date:'1 Jan 2021',
+    IR4:'Pillars1',
+    Number: "12",
+  },
+  {
+    Title: "ABC Company",
+    Date:'1 Jan 2021',
+    IR4:'Pillars1',
+    Number: "12",
+  },
+];
+
+const competancies=[
+                { value: null, text: 'Select one...' },
+                { value: 'c1', text: 'Competancy 1' },
+                { value: 'c2', text: 'Competancy 2' }
+];
+const pillars=[
+                { value: null, text: 'Select one...' },
+                { value: 'p1', text: 'Pillar 1' },
+                { value: 'p2', text: 'Pillar 2' }
+]
 export default {
   data() {
     return {
-      news,
+      openings,
+      closed,
+      competancies,
+      pillars,
+      selectedComp:null,
+      selectedPillar:null,
+      showAdd:false,
     };
   },
 };
